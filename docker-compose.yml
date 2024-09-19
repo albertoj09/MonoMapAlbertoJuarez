@@ -2,17 +2,20 @@ version: '3.8'
 
 services:
   monomap-project:
-    build: .
+    image: albertoj09/monomap:latest
     container_name: monomap-project
     ports:
       - "3000:3000"
-    environment:
-      PORT: 3000
-      MONGO_URL: mongodb://root:root@mongo_db:27017/
+    env_file:
+      - .env
     depends_on:
       - mongo_db
     networks:
       - app-network
+    environment:
+      PORT: 3000
+      MONGO_URL: mongodb://root:root@mongo_db:27017/
+     
 
   mongo_db:
     image: mongo
